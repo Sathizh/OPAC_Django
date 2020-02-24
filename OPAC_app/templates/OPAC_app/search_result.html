@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+
+{% load bootstrap4%}
+
+{%block head_block%}
+	<title>Search Result</title>
+{%endblock%}
+{%block body_block%}
+	<div class="container">
+		<div class="row">
+			{%for book in result%}
+			<div class="col-md-3">
+				<div class="card p-2  mt-4">
+					<div class="card m-2">
+						<img src="{{ book.poster.url}}" height="250px" />
+					</div>
+					<a  href="{% url 'OPAC_app:BookDetail' book.pk %}">{{book.name}}</a>
+				</div>
+			</div>
+			{%empty%}
+				<h2>No Details Found!</h2>
+			{%endfor%}
+		</div>
+	</div>
+{%endblock%}

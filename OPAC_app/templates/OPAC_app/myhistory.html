@@ -1,0 +1,35 @@
+{%extends 'base.html'%}
+
+{% load bootstrap4%}
+
+{%block head_block%}
+	<title>My History</title>
+{%endblock%}
+{%block body_block%}
+	<div class="container p-4">
+		<div class="row">
+			{%for borrow in borrow_list%}
+				{% if user == borrow.user %}
+				
+					<div class="d-flex justify-content-center">
+						<div class="card p-2  mt-4">
+							<div class="card m-2">
+								<img src="{{ borrow.book.poster.url}}"  />
+							</div>
+								<p><b>Name:</b>{{borrow.book.name}}</p>
+								<p><b>Author:</b>{{borrow.book.author}}</p>
+								<p><b>ISBN:</b>{{borrow.book.ISBN}}</p>
+								<p><b>Due Date:</b>{{borrow.due_date}}</p>
+							<div class="d-flex justify-content-center">
+								<form method="POST" action="{% url 'OPAC_app:return' borrow.book.pk %}">
+									{%csrf_token%}								
+									<input type="submit" value="Return" class="btn btn-danger  m-4" />
+								</form>
+							</div>
+						</div>
+					</div>
+				{%endif%}
+			{%endfor%}
+	</div>
+	</div>
+{%endblock%}

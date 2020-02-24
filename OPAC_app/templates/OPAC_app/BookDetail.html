@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+
+{% load bootstrap4%}
+
+{%block head_block%}
+	<title>Search Result</title>
+{%endblock%}
+{%block body_block%}
+	<div class="container">
+			<div class="d-flex justify-content-center">
+				<div class="card p-2  mt-4">
+					<div class="card m-2">
+						<img src="{{ book.poster.url}}"  />
+					</div>
+						<p><b>Name:</b>{{book.name}}</p>
+						<p><b>Author:</b>{{book.author}}</p>
+						<p><b>ISBN:</b>{{book.ISBN}}</p>
+						<p><b>Qty:</b>{{book.Qty}}</p>
+					<div class="d-flex justify-content-center">
+						{% if user.is_authenticated%}
+						{% if borrow %}
+							<form method="POST" action="{% url 'OPAC_app:return' book.pk%}">
+								{%csrf_token%}
+								<a  href="{% url 'OPAC_app:index'%}" class="btn btn-danger  m-4">Cancel</a>
+								<input type="submit" value="Return" class="btn btn-success m-4"/>
+							</form>
+						{%else%}
+							{% if empty%}
+							<h3 class="alert alert-danger w-100 text-center">Out of stock</h3>
+							{%else%}
+							<form method="POST" action="{% url 'OPAC_app:Borrow' book.pk %}">
+								{%csrf_token%}
+								<a  href="{% url 'OPAC_app:index'%}" class="btn btn-danger  m-4">Cancel</a>
+								<input type="submit" value="Borrow" class="btn btn-success m-4"/>
+							</form>
+							{%endif%}
+						{%endif%}
+						{%endif%}
+					</div>
+				</div>
+			</div>
+	</div>
+{%endblock%}

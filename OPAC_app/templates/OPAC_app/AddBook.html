@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+
+{% load bootstrap4%}
+
+{%block head_bock%}
+	<title>OPAC</title>
+{%endblock%}
+{%block body_block%}
+<div class="container">
+	<form method="POST"  enctype="multipart/form-data">
+		{%csrf_token%}
+		{% bootstrap_form form%}
+		<input type="submit"  value="AddBook" class="btn btn-success">
+	</form>
+</div>
+{%endblock%}

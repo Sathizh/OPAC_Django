@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+
+{% load bootstrap4%}
+
+{%block head_block%}
+	<title>OPAC</title>
+{%endblock%}
+{%block body_block%}
+	<form method="POST" action="{% url 'OPAC_app:search_result'%}" >
+		{%csrf_token%}
+		<div style="top:50%;position: absolute;left: 35%;width: 330px">
+			<div class="d-flex justify-content-center" >
+				<select name="category" >
+					<option value="Book">Book</option>
+					<option value="Artical">Artical</option>
+					<option value="Digital">Digital</option>
+					<option value="Journal">Journal</option>
+				</select>
+				<input type="search" name="search">
+				<input type="submit"  value="Search" class="btn btn-warning">
+			</div>
+		</div>
+	</form>
+{%endblock%}
